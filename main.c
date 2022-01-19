@@ -71,7 +71,7 @@ int play(int currentposition) {
 					else 
 					{
 					currentposition = currentposition - 1;
-					printf("Ja' chegaste ao limite do mapa\n");
+					printf("You reached the limit of the map\n");
 					}
 			}
 			if (c == 'w' || c == 'w') 
@@ -90,7 +90,7 @@ int play(int currentposition) {
 				else
 				{
 					currentposition = currentposition + 1;
-					printf("Ja' chegaste ao limite do mapa\n");
+					printf("You reached the limit of the map\n");
 				}
 			}
 			if (c == 'd' || c == 'D') 
@@ -105,7 +105,7 @@ int play(int currentposition) {
 				else
 				{
 					currentposition = currentposition - 10;
-					printf("Ja' chegaste ao limite do mapa\n");
+					printf("You reached the limit of the map\n");
 				}
 			}
 			if (c == 'a' || c == 'A') 
@@ -119,7 +119,7 @@ int play(int currentposition) {
 				else
 				{
 					currentposition = currentposition + 10;
-					printf("Ja' chegaste ao limite do mapa\n");
+					printf("You reached the limit of the map\n");
 				}
 			}
 		}
