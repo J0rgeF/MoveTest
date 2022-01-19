@@ -2,14 +2,33 @@
 #include <conio.h>
 #include <stdlib.h>
 
-int grid(int currentposition) 
+int eaten = 0;
+int points = 0;
+int r = 27;
+
+int grid(int currentposition)
 {
 	int xy[1000] = { 0 };
 	//printf("%d\n", currentposition);
-
 	xy[currentposition] = 1;
 
+	if (r == 9 || r == 10
+		|| r == 19 || r == 20
+		|| r == 29 || r == 30
+		|| r == 39 || r == 40
+		|| r == 49 || r == 50
+		|| r == 59 || r == 60
+		|| r == 69 || r == 70)
+	{
+		eaten = 1;
+	}
 
+	if(eaten == 1){
+		srand(time(NULL));
+		r = rand() % 78;
+		eaten = 0;
+	}
+	xy[r] = 3;
 	printf("Move Test in C\n");
 	printf("Developed by Jorge\n");
 	printf("XXXXXXXXXX\n");
@@ -22,11 +41,24 @@ int grid(int currentposition)
 	printf("X%d%d%d%d%d%d%d%dX\n", xy[07], xy[17], xy[27], xy[37], xy[47], xy[57], xy[67], xy[77]);
 	printf("X%d%d%d%d%d%d%d%dX\n", xy[8], xy[18], xy[28], xy[38], xy[48], xy[58], xy[68], xy[78]);
 	printf("XXXXXXXXXX\n");
+	printf("You lose 1 point if you try to get out of the map\n");
+	printf("%d points\n", points);
+
+	if (currentposition == r) {
+		eaten = 1;
+		xy[r] = 1;
+		currentposition = currentposition + 10;
+		xy[r] = 0;
+		points++;
+	}
+	else {
+		eaten = 0;
+	}
 
 	return;
 }
 
-int main() 
+int main()
 {
 
 	printf("Press 'P' to play\n");
@@ -36,15 +68,15 @@ int main()
 	for (;;) {
 		if (kbhit()) {
 			c = getch();
-			if (c == 'p'|| c == 'P') {
-				
+			if (c == 'p' || c == 'P') {
+
 				printf("PLAY\n");
 				int currentposition = 1;
 				play(currentposition);
 			}
 		}
 	}
-	
+
 }
 
 int play(int currentposition) {
@@ -59,22 +91,25 @@ int play(int currentposition) {
 			printf("%c\n", c);
 			if (c == 's' || c == 'S') {
 				currentposition++;
-				if (currentposition != 9 && currentposition != 19 
-					&& currentposition != 29 && currentposition != 39 
-					&& currentposition != 49 && currentposition != 49 
-					&& currentposition != 59 && currentposition != 69 
+				if (currentposition != 9 && currentposition != 19
+					&& currentposition != 29 && currentposition != 39
+					&& currentposition != 49 && currentposition != 49
+					&& currentposition != 59 && currentposition != 69
 					&& currentposition != 79)
 				{
 					system("cls");
 					grid(currentposition);
 				}
-					else 
-					{
+				else
+				{
 					currentposition = currentposition - 1;
 					printf("You reached the limit of the map\n");
-					}
+					points = points - 1;
+					system("cls");
+					grid(currentposition);
+				}
 			}
-			if (c == 'w' || c == 'w') 
+			if (c == 'w' || c == 'w')
 			{
 				currentposition = currentposition - 1;
 				if (currentposition != 0 && currentposition != 10
@@ -91,9 +126,12 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition + 1;
 					printf("You reached the limit of the map\n");
+					points = points - 1;
+					system("cls");
+					grid(currentposition);
 				}
 			}
-			if (c == 'd' || c == 'D') 
+			if (c == 'd' || c == 'D')
 			{
 				currentposition = currentposition + 10;
 				if (currentposition < 80)
@@ -106,9 +144,12 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition - 10;
 					printf("You reached the limit of the map\n");
+					points = points - 1;
+					system("cls");
+					grid(currentposition);
 				}
 			}
-			if (c == 'a' || c == 'A') 
+			if (c == 'a' || c == 'A')
 			{
 				currentposition = currentposition - 10;
 				if (currentposition > 0)
@@ -120,6 +161,9 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition + 10;
 					printf("You reached the limit of the map\n");
+					points = points - 1;
+					system("cls");
+					grid(currentposition);
 				}
 			}
 		}
