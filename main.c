@@ -5,6 +5,7 @@
 int eaten = 0;
 int points = 0;
 int r = 27;
+int nu = 3;
 
 int grid(int currentposition)
 {
@@ -22,13 +23,13 @@ int grid(int currentposition)
 	{
 		eaten = 1;
 	}
-
+	srand(time(NULL));
 	if(eaten == 1){
-		srand(time(NULL));
 		r = rand() % 78;
 		eaten = 0;
+		nu = rand() % ((9 + 1) - 2) + 2; // Get a random number between 2 and 9
 	}
-	xy[r] = 3;
+	xy[r] = nu;
 	printf("Move Test in C\n");
 	printf("Developed by Jorge\n");
 	printf("XXXXXXXXXX\n");
@@ -41,7 +42,7 @@ int grid(int currentposition)
 	printf("X%d%d%d%d%d%d%d%dX\n", xy[07], xy[17], xy[27], xy[37], xy[47], xy[57], xy[67], xy[77]);
 	printf("X%d%d%d%d%d%d%d%dX\n", xy[8], xy[18], xy[28], xy[38], xy[48], xy[58], xy[68], xy[78]);
 	printf("XXXXXXXXXX\n");
-	printf("You lose 1 point if you try to get out of the map\n");
+	printf("You lose your points if you reach the limit of the map\n");
 	printf("%d points\n", points);
 
 	if (currentposition == r) {
@@ -71,6 +72,7 @@ int main()
 			if (c == 'p' || c == 'P') {
 
 				printf("PLAY\n");
+				system("cls");
 				int currentposition = 1;
 				play(currentposition);
 			}
@@ -104,7 +106,7 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition - 1;
 					printf("You reached the limit of the map\n");
-					points = points - 1;
+					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
@@ -126,7 +128,7 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition + 1;
 					printf("You reached the limit of the map\n");
-					points = points - 1;
+					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
@@ -144,7 +146,7 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition - 10;
 					printf("You reached the limit of the map\n");
-					points = points - 1;
+					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
@@ -161,7 +163,7 @@ int play(int currentposition) {
 				{
 					currentposition = currentposition + 10;
 					printf("You reached the limit of the map\n");
-					points = points - 1;
+					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
