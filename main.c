@@ -30,7 +30,7 @@ int grid(int currentposition)
 		nu = rand() % ((9 + 1) - 2) + 2; // Get a random number between 2 and 9
 	}
 	xy[r] = nu;
-	printf("Move Test in C\n");
+	printf("Game Test in C\n");
 	printf("Developed by Jorge\n");
 	printf("XXXXXXXXXX\n");
 	printf("X%d%d%d%d%d%d%d%dX\n", xy[01], xy[11], xy[21], xy[31], xy[41], xy[51], xy[61], xy[71]);
