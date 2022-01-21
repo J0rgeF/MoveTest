@@ -21,7 +21,7 @@ int grid(int currentposition)
 	int xy[1000] = { 0 };
 	//printf("%d\n", currentposition);
 	xy[currentposition] = 1;
-	
+
 	while (r == 0 || r == 9 || r == 10
 		|| r == 19 || r == 20
 		|| r == 29 || r == 30
@@ -61,8 +61,34 @@ int grid(int currentposition)
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_RED"\tYou lose your points if you reach the limit of the map\n"ANSI_COLOR_RESET);
 	//printf("\tPosition : %d\n", r);
-	printf(ANSI_COLOR_YELLOW"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
-
+	if (points < 50){
+	printf("\t\t\t%d points\n", points);
+	}
+	else {
+		if (points >= 500) {
+			printf(ANSI_COLOR_CYAN"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
+		}
+		else {
+			if (points >= 300) {
+				printf(ANSI_COLOR_MAGENTA"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
+			}
+			else {
+				if (points >= 200) {
+					printf(ANSI_COLOR_BLUE"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
+				}
+				else {
+					if (points >= 100) {
+						printf(ANSI_COLOR_GREEN"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
+					}
+					else {
+						if (points >= 50) {
+							printf(ANSI_COLOR_YELLOW"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
+						}
+					}
+				}
+			}
+		}
+	}
 	if (currentposition == r) {
 		eaten = 1;
 		xy[r] = 1;
