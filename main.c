@@ -18,11 +18,11 @@ int nu = 3;
 
 int grid(int currentposition)
 {
-	int xy[1000] = { 0 };
+	int xy[1000] = { 0 }; // Set all map to 0
 	//printf("%d\n", currentposition);
-	xy[currentposition] = 1;
+	xy[currentposition] = 1; // Set player to 1
 
-	while (r == 0 || r == 9 || r == 10
+	while (r == 0 || r == 9 || r == 10 // Check if the "food" is in a position that don't exist in the map.
 		|| r == 19 || r == 20
 		|| r == 29 || r == 30
 		|| r == 39 || r == 40
@@ -33,19 +33,18 @@ int grid(int currentposition)
 		|| r == 100 || r == 110
 		|| r == 120 || r == 130
 		|| r == 140 || r == 150) {
-		r = rand() % 158;
+		r = rand() % 158; // Get a random position in the map
 	}
 
 	srand(time(NULL));
-	if (eaten == 1) {
-		r = rand() % 158;
-		r = rand() % 158;
-		eaten = 0;
+	if (eaten == 1) { // Check if player ate the fruit
+		r = rand() % 158; // Get a random position in the map
+		eaten = 0; // Set eaten to 0 again(then it will appear a new fruit in the map)
 		nu = rand() % ((9 + 1) - 2) + 2; // Get a random number between 2 and 9
 	}
 
 
-	xy[r] = nu;
+	xy[r] = nu; // Number that will appear as a fruit in the map
 	printf(ANSI_COLOR_GREEN"\t\tMove Test in C\n");
 	printf("\t\tDeveloped by Jorge\n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_CYAN"\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
@@ -61,6 +60,8 @@ int grid(int currentposition)
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_RED"\tYou lose your points if you reach the limit of the map\n"ANSI_COLOR_RESET);
 	//printf("\tPosition : %d\n", r);
+
+	/* System of changing text color according to points */
 	if (points < 50){
 	printf("\t\t\t%d points\n", points);
 	}
@@ -89,15 +90,17 @@ int grid(int currentposition)
 			}
 		}
 	}
-	if (currentposition == r) {
-		eaten = 1;
+	/* /System of changing text color according to points */
+
+	if (currentposition == r) { // If player get the fruit
+		eaten = 1; // Set eaten to 1 bcs player ate the fruit.
 		xy[r] = 1;
 		currentposition = currentposition + 10;
-		xy[r] = 0;
-		points = points + nu;
+		xy[r] = 0; // Set the position that the fruit was in to 0
+		points = points + nu; // Current Points + value of the fruit(line 43)
 	}
 	else {
-		eaten = 0;
+		eaten = 0;// If player didn't get the fruit, set eaten to 0;
 	}
 
 	return;
@@ -113,12 +116,12 @@ int main()
 	for (;;) {
 		if (kbhit()) {
 			c = getch();
-			if (c == 'p' || c == 'P') {
+			if (c == 'p' || c == 'P') { // Check if player pressed "P"
 
 				printf("PLAY\n"ANSI_COLOR_RESET);
-				system("cls");
-				int currentposition = 1;
-				play(currentposition);
+				system("cls"); // Clear console
+				int currentposition = 1; // Set currentposition to a default value
+				play(currentposition); // Call play function
 			}
 		}
 	}
@@ -136,8 +139,8 @@ int play(int currentposition) {
 		if (kbhit()) {
 			c = getch();
 			printf("%c\n", c);
-			if (c == 's' || c == 'S') {
-				currentposition++;
+			if (c == 's' || c == 'S') { // Check if player pressed "S"
+				currentposition++; // Player move down
 				if (currentposition != 0 && currentposition != 10
 					&& currentposition != 20 && currentposition != 30
 					&& currentposition != 40 && currentposition != 50
@@ -146,21 +149,21 @@ int play(int currentposition) {
 					&& currentposition != 100 && currentposition != 110
 					&& currentposition != 120 && currentposition != 130
 					&& currentposition != 140 && currentposition != 150
-					&& currentposition != 160)
+					&& currentposition != 160) // Check if player reached the limit of the map
 				{
 					system("cls");
 					grid(currentposition);
 				}
 				else
 				{
-					currentposition = currentposition - 1;
+					currentposition = currentposition - 1; // Bring player back to a position that he can stay.
 					printf("You reached the limit of the map\n");
 					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
 			}
-			if (c == 'w' || c == 'w')
+			if (c == 'w' || c == 'w') // Check if player pressed "W"
 			{
 				currentposition = currentposition - 1;
 				if (currentposition != 0 && currentposition != 10
@@ -171,7 +174,7 @@ int play(int currentposition) {
 					&& currentposition != 100 && currentposition != 110
 					&& currentposition != 120 && currentposition != 130
 					&& currentposition != 140 && currentposition != 150
-					&& currentposition != 160)
+					&& currentposition != 160) // Check if player reached the limit of the map
 				{
 					system("cls");
 					grid(currentposition);
@@ -179,17 +182,17 @@ int play(int currentposition) {
 				}
 				else
 				{
-					currentposition = currentposition + 1;
+					currentposition = currentposition + 1; // Bring player back to a position that he can stay.
 					printf("You reached the limit of the map\n");
 					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
 			}
-			if (c == 'd' || c == 'D')
+			if (c == 'd' || c == 'D') // Check if player pressed "D"
 			{
 				currentposition = currentposition + 10;
-				if (currentposition <= 159)
+				if (currentposition <= 159) // Check if player reached the limit of the map
 				{
 					system("cls");
 					//printf("%d\n", currentposition);
@@ -197,24 +200,24 @@ int play(int currentposition) {
 				}
 				else
 				{
-					currentposition = currentposition - 10;
+					currentposition = currentposition - 10; // Bring player back to a position that he can stay.
 					printf("You reached the limit of the map\n");
 					points = 0;
 					system("cls");
 					grid(currentposition);
 				}
 			}
-			if (c == 'a' || c == 'A')
+			if (c == 'a' || c == 'A') // Check if player pressed "A"
 			{
 				currentposition = currentposition - 10;
-				if (currentposition > 0)
+				if (currentposition > 0) // Check if player reached the limit of the map
 				{
 					system("cls");
 					grid(currentposition);
 				}
 				else
 				{
-					currentposition = currentposition + 10;
+					currentposition = currentposition + 10; // Bring player back to a position that he can stay.
 					printf("You reached the limit of the map\n");
 					points = 0;
 					system("cls");
