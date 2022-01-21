@@ -21,22 +21,7 @@ int grid(int currentposition)
 	int xy[1000] = { 0 };
 	//printf("%d\n", currentposition);
 	xy[currentposition] = 1;
-
-	/*if (r == 9 || r == 10
-		|| r == 19 || r == 20
-		|| r == 29 || r == 30
-		|| r == 39 || r == 40
-		|| r == 49 || r == 50
-		|| r == 59 || r == 60
-		|| r == 69 || r == 70
-		|| r == 80 || r == 90
-		|| r == 100 || r == 110
-		|| r == 120 || r == 130
-		|| r == 140 || r == 150)
-	{
-		eaten = 1;
-	}*/
-
+	
 	while (r == 0 || r == 9 || r == 10
 		|| r == 19 || r == 20
 		|| r == 29 || r == 30
@@ -75,7 +60,7 @@ int grid(int currentposition)
 	printf("\tX %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d X\n", xy[9], xy[19], xy[29], xy[39], xy[49], xy[59], xy[69], xy[79], xy[89], xy[99], xy[109], xy[119], xy[129], xy[139], xy[149], xy[159]);
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_RED"\tYou lose your points if you reach the limit of the map\n"ANSI_COLOR_RESET);
-	printf("\tPosition : %d\n", r);
+	//printf("\tPosition : %d\n", r);
 	printf(ANSI_COLOR_YELLOW"\t\t\t%d points\n"ANSI_COLOR_RESET, points);
 
 	if (currentposition == r) {
