@@ -16,6 +16,24 @@ int points = 0;
 int r = 75;
 int nu = 3;
 
+int won() {
+
+	system("cls");
+
+	printf(ANSI_COLOR_CYAN"\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tX    Congratulations, you won!!   X\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+
+}
+
 int grid(int currentposition)
 {
 	int xy[1000] = { 0 }; // Set all map to 0
@@ -62,7 +80,7 @@ int grid(int currentposition)
 	//printf("\tPosition : %d\n", r);
 
 	/* System of changing text color according to points */
-	if (points < 50){
+	if (points < 50) { 
 	printf("\t\t\t%d points\n", points);
 	}
 	else {
@@ -92,6 +110,9 @@ int grid(int currentposition)
 	}
 	/* /System of changing text color according to points */
 
+	printf(ANSI_COLOR_YELLOW"\t\t\t\t\n\n\n\n\n								If you want to reset press "ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_RED"R\n"ANSI_COLOR_RESET);
+
 	if (currentposition == r) { // If player get the fruit
 		eaten = 1; // Set eaten to 1 bcs player ate the fruit.
 		xy[r] = 1;
@@ -102,6 +123,11 @@ int grid(int currentposition)
 	else {
 		eaten = 0;// If player didn't get the fruit, set eaten to 0;
 	}
+
+	if (points >= 500) {
+		won();
+	}
+
 
 	return;
 }
@@ -138,8 +164,8 @@ int play(int currentposition) {
 	for (;;) {
 		if (kbhit()) {
 			c = getch();
-			printf("%c\n", c);
-			if (c == 's' || c == 'S') { // Check if player pressed "S"
+			//printf("%c\n", c); // Print which key player is pressing
+			if (c == 's' || c == 'S' || c == 80) { // Check if player pressed "S"/"s" or Down arrow
 				currentposition++; // Player move down
 				if (currentposition != 0 && currentposition != 10
 					&& currentposition != 20 && currentposition != 30
@@ -163,7 +189,7 @@ int play(int currentposition) {
 					grid(currentposition);
 				}
 			}
-			if (c == 'w' || c == 'w') // Check if player pressed "W"
+			if (c == 'w' || c == 'W' || c == 72) // Check if player pressed "W"/"w" or UP Arrow
 			{
 				currentposition = currentposition - 1;
 				if (currentposition != 0 && currentposition != 10
@@ -189,7 +215,7 @@ int play(int currentposition) {
 					grid(currentposition);
 				}
 			}
-			if (c == 'd' || c == 'D') // Check if player pressed "D"
+			if (c == 'd' || c == 'D' || c == 77) // Check if player pressed "D"/"d" or right arrow
 			{
 				currentposition = currentposition + 10;
 				if (currentposition <= 159) // Check if player reached the limit of the map
@@ -207,7 +233,7 @@ int play(int currentposition) {
 					grid(currentposition);
 				}
 			}
-			if (c == 'a' || c == 'A') // Check if player pressed "A"
+			if (c == 'a' || c == 'A' || c == 75) // Check if player pressed "A"/"a" or left arrow
 			{
 				currentposition = currentposition - 10;
 				if (currentposition > 0) // Check if player reached the limit of the map
@@ -224,6 +250,22 @@ int play(int currentposition) {
 					grid(currentposition);
 				}
 			}
+			if (c == 'r' || c == 'R') // A key to reset
+			{
+				points = 0;
+				currentposition = 1;
+				eaten = 0;
+				system("cls");
+				grid(currentposition);
+			}
+			/* JUST FOR TESTS
+			if (c == 'g' || c == 'G') 
+			{
+				points = points + 50;
+				system("cls");
+				grid(currentposition);
+			}
+			*/
 		}
 	}
 }
