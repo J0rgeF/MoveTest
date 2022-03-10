@@ -37,7 +37,7 @@ int won() {
 int grid(int currentposition)
 {
 	int xy[1000] = { 0 }; // Set all map to 0
-	//printf("%d\n", currentposition);
+						  //printf("%d\n", currentposition);
 	xy[currentposition] = 1; // Set player to 1
 
 	while (r == 0 || r == 9 || r == 10 // Check if the "food" is in a position that don't exist in the map.
@@ -80,8 +80,8 @@ int grid(int currentposition)
 	//printf("\tPosition : %d\n", r);
 
 	/* System of changing text color according to points */
-	if (points < 50) { 
-	printf("\t\t\t%d points\n", points);
+	if (points < 50) {
+		printf("\t\t\t%d points\n", points);
 	}
 	else {
 		if (points >= 500) {
@@ -255,15 +255,17 @@ int play(int currentposition) {
 				points = 0;
 				currentposition = 1;
 				eaten = 0;
+				r = rand() % 158; // Get a random position in the map
+				nu = rand() % ((9 + 1) - 2) + 2; // Get a random number between 2 and 9
 				system("cls");
 				grid(currentposition);
 			}
 			/* JUST FOR TESTS
-			if (c == 'g' || c == 'G') 
+			if (c == 'g' || c == 'G')
 			{
-				points = points + 50;
-				system("cls");
-				grid(currentposition);
+			points = points + 50;
+			system("cls");
+			grid(currentposition);
 			}
 			*/
 		}
