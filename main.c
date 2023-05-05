@@ -18,7 +18,8 @@ int nu = 3;
 
 void play(int currentpositionx, int currentpositiony);
 void grid(int currentpositionx, int currentpositiony);
-
+int CheckLimits(int x, int y);
+void lost();
 void won();
 
 void won()
@@ -37,8 +38,6 @@ void won()
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
-
-	return;
 }
 
 void grid(int currentpositionx, int currentpositiony)
@@ -137,12 +136,20 @@ void grid(int currentpositionx, int currentpositiony)
 	}
 }
 
-int main()
+int main(int rp)
 {
 	int currentpositionx = 0;
 	int currentpositiony = 0;
 	char c = 'a';
-	printf(ANSI_COLOR_BLUE "Press 'P' to play\n");
+	eaten = 0;
+	points = 0;
+	rx = 7;
+	ry = 5;
+	nu = 3;
+	if(rp == 1)
+		printf(ANSI_COLOR_BLUE "\nPress 'P' to play again\n");
+	else
+		printf(ANSI_COLOR_BLUE "Press 'P' to play\n");
 
 	for (;;)
 	{
@@ -179,6 +186,10 @@ void play(int currentpositionx, int currentpositiony)
 					system("cls");
 					grid(currentpositionx, currentpositiony);
 				}
+				else
+				{
+					lost();
+				}
 			}
 			if (c == 'w' || c == 'W' || c == 72) // Check if player pressed "W"/"w" or UP Arrow
 			{
@@ -187,6 +198,10 @@ void play(int currentpositionx, int currentpositiony)
 					currentpositiony--;
 					system("cls");
 					grid(currentpositionx, currentpositiony);
+				}
+				else
+				{
+					lost();
 				}
 			}
 			if (c == 'd' || c == 'D' || c == 77) // Check if player pressed "D"/"d" or right arrow
@@ -197,6 +212,10 @@ void play(int currentpositionx, int currentpositiony)
 					system("cls");
 					grid(currentpositionx, currentpositiony);
 				}
+				else
+				{
+					lost();
+				}
 			}
 			if (c == 'a' || c == 'A' || c == 75) // Check if player pressed "A"/"a" or left arrow
 			{
@@ -205,6 +224,10 @@ void play(int currentpositionx, int currentpositiony)
 					currentpositionx--;
 					system("cls");
 					grid(currentpositionx, currentpositiony);
+				}
+				else
+				{
+					lost();
 				}
 			}
 			if (c == 'r' || c == 'R') // A key to reset
@@ -229,4 +252,23 @@ int CheckLimits(int x, int y)
 		return 1;
 	else
 		return 0;
+}
+
+void lost()
+{
+	
+	system("cls");
+	printf(ANSI_COLOR_CYAN "\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tX    YOU LOST!!   X\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+	printf("\tXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+
+	main(1);
 }
