@@ -16,6 +16,11 @@ int rx = 7;
 int ry = 5;
 int nu = 3;
 
+void play(int currentpositionx, int currentpositiony);
+void grid(int currentpositionx, int currentpositiony);
+
+void won();
+
 void won()
 {
 
@@ -36,13 +41,13 @@ void won()
 	return;
 }
 
-int grid(int currentpositionx, int currentpositiony)
+void grid(int currentpositionx, int currentpositiony)
 {
 	int xy[16][9] = {0};		 // Set all map to 0
 							 // printf("%d\n", currentposition);
 	xy[currentpositionx][currentpositiony] = 1; // Set player to 1
 
-	srand(time(NULL));
+
 	if (eaten == 1)
 	{									 // Check if player ate the fruit
 		rx = rand() % 16;				 // Get a random position in the map
@@ -129,16 +134,15 @@ int grid(int currentpositionx, int currentpositiony)
 	if (points >= 500)
 	{
 		won();
-		return;
 	}
 }
 
 int main()
 {
-
+	int currentpositionx = 0;
+	int currentpositiony = 0;
+	char c = 'a';
 	printf(ANSI_COLOR_BLUE "Press 'P' to play\n");
-
-	char c;
 
 	for (;;)
 	{
@@ -149,50 +153,59 @@ int main()
 			{ // Check if player pressed "P"
 
 				printf("PLAY\n" ANSI_COLOR_RESET);
-				system("cls");			 // Clear console
-				int currentpositionx = 0; // Set currentposition to a default value
-				int currentpositiony = 0;
+				system("cls"); // Clear console
 				play(currentpositionx, currentpositiony);	 // Call play function
 			}
 		}
 	}
 }
 
-int play(int currentpositionx, int currentpositiony)
+void play(int currentpositionx, int currentpositiony)
 {
-	grid(currentpositionx, currentpositiony);
-
 	char c;
+	grid(currentpositionx, currentpositiony);
 
 	for (;;)
 	{
 		if (kbhit())
 		{
 			c = getch();
-			// printf("%c\n", c); // Print which key player is pressing
+			//printf("%c\n", c); // Print which key player is pressing
 			if (c == 's' || c == 'S' || c == 80)
-			{																																																																																																													 // Check if player pressed "S"/"s" or Down arrow
-				currentpositiony--;																																																																																																								 // Player move down
-				// else
-				// {
-				// 	currentposition = currentposition - 1; // Bring player back to a position that he can stay.
-				// 	printf("You reached the limit of the map\n");
-				// 	points = 0;
-				// 	system("cls");
-				// 	grid(currentpositionx, currentpositiony);
-				// }
+			{						
+				if(CheckLimits(currentpositionx, currentpositiony+1) == 0)
+				{
+					currentpositiony++;
+					system("cls");
+					grid(currentpositionx, currentpositiony);
+				}
 			}
 			if (c == 'w' || c == 'W' || c == 72) // Check if player pressed "W"/"w" or UP Arrow
 			{
-				currentpositiony = currentpositiony + 1;
+				if(CheckLimits(currentpositionx, currentpositiony-1) == 0)
+				{
+					currentpositiony--;
+					system("cls");
+					grid(currentpositionx, currentpositiony);
+				}
 			}
 			if (c == 'd' || c == 'D' || c == 77) // Check if player pressed "D"/"d" or right arrow
 			{
-				currentpositionx = currentpositionx + 1;
+				if(CheckLimits(currentpositionx+1, currentpositiony) == 0)
+				{
+					currentpositionx++;
+					system("cls");
+					grid(currentpositionx, currentpositiony);
+				}
 			}
 			if (c == 'a' || c == 'A' || c == 75) // Check if player pressed "A"/"a" or left arrow
 			{
-				currentpositionx = currentpositionx - 1;
+				if(CheckLimits(currentpositionx-1, currentpositiony) == 0)
+				{
+					currentpositionx--;
+					system("cls");
+					grid(currentpositionx, currentpositiony);
+				}
 			}
 			if (c == 'r' || c == 'R') // A key to reset
 			{
@@ -206,14 +219,14 @@ int play(int currentpositionx, int currentpositiony)
 				system("cls");
 				grid(currentpositionx, currentpositiony);
 			}
-			/* JUST FOR TESTS
-			if (c == 'g' || c == 'G')
-			{
-			points = points + 50;
-			system("cls");
-			grid(currentposition);
-			}
-			*/
 		}
 	}
+}
+
+int CheckLimits(int x, int y)
+{
+	if(x > 15 || y > 8 || x < 0 || y < 0)
+		return 1;
+	else
+		return 0;
 }
